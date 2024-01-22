@@ -46,13 +46,20 @@ const abiSchema = Joi.object({
   )
 });
 
+const logSchema = Joi.object({
+  address: Joi.string().required(),
+  topics: Joi.array().items(Joi.string()).required(),
+  data: Joi.string().default('0x'),
+  ordinal: Joi.string()
+}).unknown()
+
 const decodeTransactionSchema = Joi.object({
   abis: Joi.object().pattern(/^0x[a-fA-F0-9]{40}$/, abiSchema),
   transaction: Joi.object({
     input: Joi.string(),
     value: Joi.string(),
     to: Joi.string().required(),
-    logs: Joi.array(),
+    logs: Joi.array().items(logSchema),
     error: Joi.object({
       data: Joi.string().required()
     })
@@ -61,12 +68,7 @@ const decodeTransactionSchema = Joi.object({
 
 const decodeLogsSchema = Joi.object({
   abis: Joi.object().pattern(/^0x[a-fA-F0-9]{40}$/, abiSchema),
-  logs: Joi.array().items(Joi.object({
-    address: Joi.string().required(),
-    topics: Joi.array().items(Joi.string()).required(),
-    data: Joi.string().default('0x'),
-    ordinal: Joi.string()
-  }).unknown()).required()
+  logs: Joi.array().items(logSchema).required()
 })
 
 router.post("/api/internal/transaction/decode", async (req: Request<DecodeTransactionPayload>, res: Response<DecodedTransaction | ErrorResponse>) => {
