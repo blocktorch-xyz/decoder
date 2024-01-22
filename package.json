@@ -1,0 +1,46 @@
+{
+  "name": "decoder-service",
+  "version": "0.0.2-SNAPSHOT",
+  "description": "",
+  "main": "src/app.ts",
+  "scripts": {
+    "dev": "NODE_ENV=development nodemon src/server.ts",
+    "build": "tsc -p .",
+    "start": "node dist/server.js",
+    "test": "NODE_ENV=test jest --collectCoverage --forceExit --maxConcurrency=3 --noStackTrace --config=./jest.config.ts",
+    "test:watch": "jest --collectCoverage --forceExit --maxWorkers=1  --watchAll --config=./jest.config.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/blocktorch-xyz/decoder-service"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/preset-env": "^7.21.4",
+    "@babel/preset-typescript": "^7.21.4",
+    "@types/express": "^4.17.21",
+    "@types/jest": "^29.5.1",
+    "@types/node": "^18.19.3",
+    "@types/supertest": "^6.0.2",
+    "jest": "^29.5.0",
+    "nodemon": "^2.0.22",
+    "supertest": "^6.3.3",
+    "ts-jest": "^29.1.0",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.0.4"
+  },
+  "dependencies": {
+    "axios": "^1.6.5",
+    "body-parser": "^1.20.2",
+    "dd-trace": "4.24.0",
+    "dotenv": "^16.3.1",
+    "ethers": "^5.7.2",
+    "evm-proxy-detection": "^1.1.0",
+    "express": "^4.18.2",
+    "express-basic-auth": "^1.2.1",
+    "joi": "^17.12.0",
+    "winston": "^3.11.0"
+  }
+}
