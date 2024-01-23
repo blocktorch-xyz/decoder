@@ -79,6 +79,9 @@ router.post("/api/internal/transaction/decode", async (req: Request<DecodeTransa
 
   const {abis, transaction} = value
   const contractAbis: ContractAbis = abis[(transaction as RawTransaction).to]
+  if (!contractAbis) {
+    return res.status(400).json({error: `Missing contract ABIs for address ${(transaction as RawTransaction).to}`})
+  }
   const decodedTransaction = await decoderService.decode(contractAbis, transaction)
   if (decodedTransaction) {
     return res.status(200).json(decodedTransaction || {})
